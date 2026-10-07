@@ -1,17 +1,11 @@
 {
-  "name": "mm4-meet",
-  "version": "2.0.0",
-  "description": "mm4 Meet — group calls with profiles, themes, and plugins",
+  "name": "meet-signal",
+  "version": "1.0.0",
   "main": "server.js",
-  "type": "commonjs",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "ws": "^8.18.0"
-  },
-  "engines": {
-    "node": ">=18"
   }
 }
