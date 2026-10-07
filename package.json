@@ -1,11 +1,17 @@
 {
-  "name": "meet-signal",
-  "version": "1.0.0",
+  "name": "mm-meet",
+  "version": "2.0.0",
+  "description": "MM Meet — group calls with profiles, themes, and plugins",
   "main": "server.js",
+  "type": "commonjs",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node --watch server.js"
   },
   "dependencies": {
     "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
