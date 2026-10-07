@@ -10,7 +10,7 @@ const server = http.createServer((req, res) => {
 
 const wss = new WebSocketServer({ server });
 
-// roomId -> Map<ws, { id, name }>
+// roomId -> Map<ws, { id, name, role }>
 const rooms = new Map();
 
 function getRoom(id) {
@@ -37,7 +37,7 @@ wss.on('connection', (ws, req) => {
   if (!roomId) { try { ws.close(1008, 'room required'); } catch (_) {} return; }
 
   const room = getRoom(roomId);
-  room.set(ws, { id: null, name: null });
+  room.set(ws, { id: null, name: null, role: 'member' });
 
   ws.on('message', (raw) => {
     let msg;
@@ -49,6 +49,7 @@ wss.on('connection', (ws, req) => {
       case 'join': {
         me.id = msg.peer.id;
         me.name = msg.peer.name;
+        me.role = msg.role || 'member';
 
         // Send existing peers to the new joiner
         const existing = [];
@@ -62,10 +63,38 @@ wss.on('connection', (ws, req) => {
         break;
       }
 
+      case 'role': {
+        // Update the target's stored role on the server
+        for (const [otherWs, otherPeer] of room.entries()) {
+          if (otherPeer.id === msg.peerId) {
+            otherPeer.role = msg.role;
+            // Forward the role change to the target AND to everyone else
+            send(otherWs, { type: 'role', peerId: msg.peerId, role: msg.role, from: me.id });
+            broadcast(room, { type: 'role', peerId: msg.peerId, role: msg.role, from: me.id }, otherWs);
+            break;
+          }
+        }
+        break;
+      }
+
+      case 'kick': {
+        // Find the target and tell them to leave
+        for (const [otherWs, otherPeer] of room.entries()) {
+          if (otherPeer.id === msg.peerId) {
+            send(otherWs, { type: 'kick', peerId: msg.peerId, from: me.id });
+            // Also notify others
+            broadcast(room, { type: 'peer-left', peerId: msg.peerId }, otherWs);
+            break;
+          }
+        }
+        break;
+      }
+
       case 'offer':
       case 'answer':
       case 'ice':
       case 'chat':
+      case 'delete':
       case 'state': {
         if (msg.to) {
           for (const [otherWs, otherPeer] of room.entries()) {
