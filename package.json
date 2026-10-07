@@ -1,7 +1,7 @@
 {
-  "name": "mm-meet",
+  "name": "mm4-meet",
   "version": "2.0.0",
-  "description": "MM Meet — group calls with profiles, themes, and plugins",
+  "description": "mm4 Meet — group calls with profiles, themes, and plugins",
   "main": "server.js",
   "type": "commonjs",
   "scripts": {
