@@ -1,8 +1,11 @@
 {
-  "name": "mm4-chatroom",
+  "name": "mollyworld",
   "version": "2.0.0",
-  "description": "mm4 chatroom — peer-to-peer chat, voice, and video workspace with a Discord/Slack/Telegram-style UI",
+  "description": "MollyWorld — peer-to-peer chat, voice, and video workspace. By mm4 productions.",
   "main": "server.js",
+  "author": "mm4 productions",
+  "license": "MIT",
+  "private": false,
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js"
@@ -11,6 +14,9 @@
     "node": ">=18.0.0"
   },
   "keywords": [
+    "mollyworld",
+    "mm4",
+    "mm4-productions",
     "webrtc",
     "chat",
     "voice",
@@ -21,7 +27,6 @@
     "slack",
     "telegram"
   ],
-  "license": "MIT",
   "dependencies": {
     "ws": "^8.18.0"
   }
