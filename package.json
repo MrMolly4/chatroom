@@ -1,10 +1,27 @@
 {
-  "name": "meet-signal",
-  "version": "1.0.0",
+  "name": "mm4-chatroom",
+  "version": "2.0.0",
+  "description": "mm4 chatroom — peer-to-peer chat, voice, and video workspace with a Discord/Slack/Telegram-style UI",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "webrtc",
+    "chat",
+    "voice",
+    "video",
+    "websocket",
+    "signaling",
+    "discord",
+    "slack",
+    "telegram"
+  ],
+  "license": "MIT",
   "dependencies": {
     "ws": "^8.18.0"
   }
